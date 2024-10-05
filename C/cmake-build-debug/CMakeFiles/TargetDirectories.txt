@@ -1,0 +1,3 @@
+C:/Users/Olga/Desktop/studia/gran canaria/matrix multiplication/matrix-multiplication-language-benchmark/C/cmake-build-debug/CMakeFiles/C.dir
+C:/Users/Olga/Desktop/studia/gran canaria/matrix multiplication/matrix-multiplication-language-benchmark/C/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Olga/Desktop/studia/gran canaria/matrix multiplication/matrix-multiplication-language-benchmark/C/cmake-build-debug/CMakeFiles/rebuild_cache.dir

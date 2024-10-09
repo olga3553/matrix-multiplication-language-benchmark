@@ -70,6 +70,8 @@ int main() {
     ULONGLONG cpu_time_used = cpu_time_after - cpu_time_before;
     SIZE_T memory_used = memory_usage_after - memory_usage_before;
 
+    printf("Memory used before: %zu KB\n", memory_usage_before);
+    printf("Memory used after: %zu KB\n", memory_usage_after);
     printf("CPU time used: %llu ms\n", cpu_time_used);
     printf("Memory used: %zu KB\n", memory_used);
 

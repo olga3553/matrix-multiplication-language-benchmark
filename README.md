@@ -1,2 +1,0 @@
-# matrix multiplication language benchmark
- 

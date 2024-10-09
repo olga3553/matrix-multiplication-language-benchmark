@@ -31,19 +31,17 @@ public class MatrixMultiplicationBenchmarking {
 
 	@State(Scope.Thread)
 	public static class ResourceUsage {
-		// Variables to accumulate memory and CPU usage
 		long totalMemoryUsed = 0;
 		long totalCpuTimeUsed = 0;
-		int iterations = 0; // To count the number of iterations
+		int iterations = 0;
 
 		// Method to accumulate usage
 		public void accumulate(long memoryUsed, long cpuTimeUsed) {
 			totalMemoryUsed += memoryUsed;
 			totalCpuTimeUsed += cpuTimeUsed;
-			iterations++; // Increment iteration count
+			iterations++;
 		}
 
-		// Method to print averages
 		@TearDown
 		public void printAverages() {
 			if (iterations > 0) {
@@ -59,20 +57,16 @@ public class MatrixMultiplicationBenchmarking {
 	@Warmup(iterations = 0, time = 1, timeUnit = TimeUnit.MILLISECONDS)
 	@Benchmark
 	public void multiplication(Operands operands, ResourceUsage resourceUsage) {
-		// Capture memory usage before execution
+		// Capture Memory usage and CPU before execution
 		long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-
-		// Capture CPU time before execution
 		ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
 		long beforeCpuTime = threadMXBean.getCurrentThreadCpuTime();
 
 		// Execute the multiplication
 		new MatrixMultiplication().execute(operands.a, operands.b);
 
-		// Capture memory usage after execution
+		// Memory usage and CPU after execution
 		long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-
-		// Capture CPU time after execution
 		long afterCpuTime = threadMXBean.getCurrentThreadCpuTime();
 
 		// Calculate memory and CPU usage

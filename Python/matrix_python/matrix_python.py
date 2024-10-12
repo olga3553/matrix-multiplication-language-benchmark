@@ -38,7 +38,7 @@ def test_matrix_multiply(benchmark, setup_matrices):
     mem_usage = max(mem_after - mem_before, 0)
 
     print()
-    print(f"Czas procesora: {cpu_time_ms:.2f} ms")
-    print(f"Zużycie pamięci: {mem_usage:.2f} MB")
+    print(f"CPU time: {cpu_time_ms:.2f} ms")
+    print(f"Memory usage: {mem_usage:.2f} MB")
 
     assert result is not None

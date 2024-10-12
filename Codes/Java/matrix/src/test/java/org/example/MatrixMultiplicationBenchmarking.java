@@ -13,7 +13,7 @@ public class MatrixMultiplicationBenchmarking {
 
 	@State(Scope.Thread)
 	public static class Operands {
-		private final int n = 128;
+		private final int n = 64;
 		private final double[][] a = new double[n][n];
 		private final double[][] b = new double[n][n];
 

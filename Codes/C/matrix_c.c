@@ -4,7 +4,7 @@
 #include <psapi.h>
 #include <sys/time.h>
 
-#define n 512
+#define n 4096
 double a[n][n];
 double b[n][n];
 double c[n][n];

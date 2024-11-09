@@ -11,9 +11,10 @@ import java.util.concurrent.TimeUnit;
 @Fork(value = 1)
 @Warmup(iterations = 0)
 @Measurement(iterations = 4)
+@Timeout(time = 300, timeUnit = TimeUnit.SECONDS)
 public class MatrixMultiplicationBenchmarking {
 
-	private static final int SIZE = 2048;
+	private static final int SIZE = 1024;
 	private double[][] matrixA;
 	private double[][] matrixB;
 	private SparseMatrix sparseMatrixA;

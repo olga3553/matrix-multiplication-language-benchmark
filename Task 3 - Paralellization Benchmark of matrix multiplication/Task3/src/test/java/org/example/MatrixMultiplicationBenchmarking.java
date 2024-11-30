@@ -20,7 +20,11 @@ import java.util.concurrent.TimeUnit;
 @Timeout(time = 180, timeUnit = TimeUnit.SECONDS)
 public class MatrixMultiplicationBenchmarking {
 
-    @Param({"100", "1000", "2000", "3000"})
+    @Param({"2", "4", "8", "16", "32"})
+    private int numThreads;
+
+
+    @Param({"500", "1000", "1500", "2000"})
     private int SIZE;
 
     private double[][] matrixA;
@@ -85,8 +89,8 @@ public class MatrixMultiplicationBenchmarking {
         long totalCpuTime = cpuTimes.stream().mapToLong(Long::longValue).sum();
         long totalMemoryUsage = memoryUsages.stream().mapToLong(Long::longValue).sum();
 
-        double averageCpuTimeMs = totalCpuTime / (double) cpuTimes.size() / 1_000_000.0; // Convert to ms
-        double averageMemoryUsageKb = totalMemoryUsage / (double) memoryUsages.size() / 1024.0; // Convert to KB
+        double averageCpuTimeMs = totalCpuTime / (double) cpuTimes.size() / 1_000_000.0;
+        double averageMemoryUsageKb = totalMemoryUsage / (double) memoryUsages.size() / 1024.0;
 
         System.out.printf("Average CPU Time: %.3f ms, Average Memory Used: %.3f KB%n",
                 averageCpuTimeMs, averageMemoryUsageKb);
@@ -95,7 +99,7 @@ public class MatrixMultiplicationBenchmarking {
     @Benchmark
     public double[][] benchmarkParallelMultiplication() throws ExecutionException, InterruptedException {
         startMeasurement();
-        double[][] result = ParallelMatrixMultiplication.multiply(matrixA, matrixB, Runtime.getRuntime().availableProcessors());
+        double[][] result = ParallelMatrixMultiplication.multiply(matrixA, matrixB, numThreads);
         endMeasurement();
         return result;
     }
@@ -128,6 +132,22 @@ public class MatrixMultiplicationBenchmarking {
     public double[][] benchmarkAtomicMultiplication() {
         startMeasurement();
         double[][] result = AtomicMatrixMultiplication.multiply(matrixA, matrixB);
+        endMeasurement();
+        return result;
+    }
+
+    @Benchmark
+    public double[][] benchmarkVectorizedMultiplication() throws ExecutionException, InterruptedException {
+        startMeasurement();
+        double[][] result = VectorizedMatrixMultiplication.multiply(matrixA, matrixB, numThreads);
+        endMeasurement();
+        return result;
+    }
+
+    @Benchmark
+    public double[][] benchmarkFixedThreadsMultiplication() {
+        startMeasurement();
+        double[][] result = MatrixMultiplicationFixedThreads.multiply(matrixA, matrixB, Runtime.getRuntime().availableProcessors());
         endMeasurement();
         return result;
     }
